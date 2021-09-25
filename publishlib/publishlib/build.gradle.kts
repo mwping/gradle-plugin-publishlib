@@ -21,8 +21,8 @@ version = "1.0.0"
 gradlePlugin {
     // Define the plugin
     val greeting by plugins.creating {
-        id = "$group.greeting"
-        implementationClass = "com.example.plugin.GreetingPlugin"
+        id = "$group.publishlib"
+        implementationClass = "com.mwping.plugin.PublishLibPlugin"
     }
 }
 
@@ -30,7 +30,7 @@ publishing {
     repositories {
         maven {
             name = "Github"
-            url = uri("https://maven.pkg.github.com/mwping/gradle-plugin-template")
+            url = uri("https://maven.pkg.github.com/mwping/android-developer")
             credentials {
                 username = System.getenv("GPR_USR") ?: project.findProperty("GPR_USR").toString()
                 password = System.getenv("GPR_KEY") ?: project.findProperty("GPR_KEY").toString()
