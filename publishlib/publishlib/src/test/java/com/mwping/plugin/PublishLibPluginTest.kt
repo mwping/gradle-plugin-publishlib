@@ -10,5 +10,6 @@ class PublishLibPluginTest {
         // Create a test project and apply the plugin
         val project = ProjectBuilder.builder().build()
         project.plugins.apply("com.mwping.android.plugin.publishlib")
+        println(project.nextReleaseVersion)
     }
 }

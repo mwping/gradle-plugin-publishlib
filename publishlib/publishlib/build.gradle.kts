@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation("com.android.tools.build:gradle:4.1.0")
+    implementation("org.json:json:20210307")
     testImplementation("junit:junit:4.13")
 }
 

@@ -17,6 +17,7 @@ class PublishLibPlugin : Plugin<Project> {
             archiveClassifier.set("sources")
             from(project.android.sourceSets.getByName("main").java.srcDirs)
         }
+        project.tasks.register<GenPublishConfigFilesTask>("genPublishConfigFilesTask")
 
         project.afterEvaluate {
             configure<PublishingExtension> {
@@ -31,12 +32,19 @@ class PublishLibPlugin : Plugin<Project> {
                     }
                 }
                 publications {
+                    val libArtifactId = project.artifactId ?: project.name
+                    val libVersion = project.nextReleaseVersion
+                    val libGroup = project.groupId
+                    println("-----------------------------------------------")
+                    println("准备发布:\nimplementation(\"$libGroup:$libArtifactId:$libVersion\")")
+                    println("-----------------------------------------------")
+
                     create("release", MavenPublication::class.java) {
                         from(components.getByName("release"))
                         artifact(tasks.findByName("androidSourcesJar"))
-                        groupId = project.groupId
-                        artifactId = project.artifactId ?: project.name
-                        version = "0.0.1"
+                        groupId = libGroup
+                        artifactId = libArtifactId
+                        version = libVersion
                     }
                 }
             }
