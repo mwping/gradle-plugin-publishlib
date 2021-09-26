@@ -18,7 +18,7 @@ dependencies {
 }
 
 group = "com.mwping.android.plugin"
-version = "1.0.1"
+version = "1.0.0"
 
 gradlePlugin {
     // Define the plugin

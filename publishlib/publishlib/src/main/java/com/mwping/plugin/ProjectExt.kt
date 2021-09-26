@@ -14,8 +14,13 @@ fun Project.getEnv(key: String): String? {
 
 val Project.android: LibraryExtension get() = extensions.findByName("android") as LibraryExtension
 
+val Project.libVersion get() = project.findProperty("LIB_VERSION")?.toString()
+
 val Project.nextReleaseVersion: String
     get() {
+        if (libVersion != null) {
+            return libVersion!!
+        }
         val text =
             execCmd("standard-version --dry-run --skip.commit --skip.changelog").replace("\n", "#")
         val pattern = Pattern.compile(".* tagging release (.*)#.*")
@@ -41,5 +46,3 @@ val Project.groupId
     get() = project.findProperty("GROUP_ID")?.toString()?.takeIf { it.isNotEmpty() }
         ?: error("GROUP_ID can not be null")
 val Project.artifactId get() = project.findProperty("ARTIFACT_ID")?.toString()
-
-val Project.libVersion get() = project.findProperty("LIB_VERSION")?.toString()
