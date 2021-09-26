@@ -41,3 +41,5 @@ val Project.groupId
     get() = project.findProperty("GROUP_ID")?.toString()?.takeIf { it.isNotEmpty() }
         ?: error("GROUP_ID can not be null")
 val Project.artifactId get() = project.findProperty("ARTIFACT_ID")?.toString()
+
+val Project.libVersion get() = project.findProperty("LIB_VERSION")?.toString()

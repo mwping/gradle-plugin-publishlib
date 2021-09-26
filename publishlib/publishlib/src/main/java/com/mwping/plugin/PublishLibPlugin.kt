@@ -33,7 +33,7 @@ class PublishLibPlugin : Plugin<Project> {
                 }
                 publications {
                     val libArtifactId = project.artifactId ?: project.name
-                    val libVersion = project.nextReleaseVersion
+                    val libVersion = project.libVersion ?: project.nextReleaseVersion
                     val libGroup = project.groupId
                     println("-----------------------------------------------")
                     println("准备发布:\nimplementation(\"$libGroup:$libArtifactId:$libVersion\")")

@@ -9,7 +9,7 @@ import java.io.File
  * weiping@atlasv.com
  * 2021/9/26
  */
-class GenPublishConfigFilesTask : DefaultTask() {
+open class GenPublishConfigFilesTask : DefaultTask() {
     @TaskAction
     private fun doAction() {
         val libVersion = project.nextReleaseVersion
