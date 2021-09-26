@@ -6,12 +6,13 @@ plugins {
 }
 
 repositories {
+    google()
     // Use Maven Central for resolving dependencies
     mavenCentral()
 }
 
 dependencies {
-    // Use JUnit test framework for unit tests
+    implementation("com.android.tools.build:gradle:4.1.0")
     testImplementation("junit:junit:4.13")
 }
 
