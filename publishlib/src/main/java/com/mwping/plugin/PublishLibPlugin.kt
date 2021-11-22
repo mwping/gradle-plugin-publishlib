@@ -13,10 +13,15 @@ class PublishLibPlugin : Plugin<Project> {
         project.logger.warn("-------------PublishLibPlugin applied-------------")
         project.plugins.apply("maven-publish")
 
-        project.tasks.register<Jar>("androidSourcesJar") {
-            archiveClassifier.set("sources")
-            from(project.android.sourceSets.getByName("main").java.srcDirs)
+        val isAndroidModule = project.extensions.findByName("android") != null
+
+        if(isAndroidModule){
+            project.tasks.register<Jar>("androidSourcesJar") {
+                archiveClassifier.set("sources")
+                from(project.android.sourceSets.getByName("main").java.srcDirs)
+            }
         }
+
         project.tasks.register<GenPublishConfigFilesTask>("genPublishConfigFilesTask")
 
         project.afterEvaluate {
@@ -40,8 +45,11 @@ class PublishLibPlugin : Plugin<Project> {
                     println("-----------------------------------------------")
 
                     create("release", MavenPublication::class.java) {
-                        from(components.getByName("release"))
-                        artifact(tasks.findByName("androidSourcesJar"))
+                        val comp = components.getByName(if (isAndroidModule) "release" else "java")
+                        from(comp)
+                        if(isAndroidModule){
+                            artifact(tasks.findByName("androidSourcesJar"))
+                        }
                         groupId = libGroup
                         artifactId = libArtifactId
                         version = libVersion
